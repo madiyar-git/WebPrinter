@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.printers import router as printers_router
+from app.api.v1.print import router as print_router
 
 app = FastAPI(
     title="Print Service API",
@@ -24,8 +25,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Подключаем роутер принтеров
+# Подключение роутеров v1
 app.include_router(printers_router, prefix="/api/v1")
+app.include_router(print_router, prefix="/api/v1")
 
 
 @app.get("/api/v1/health", summary="Проверка состояния API")
